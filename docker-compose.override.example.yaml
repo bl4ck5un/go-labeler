@@ -2,10 +2,10 @@ services:
   labeler:
     # entrypoint: ./list-labeler
     ports:
-      - "${ADMIN_ADDR:-127.0.0.1:8081}:8081"
+      - "${ADMIN_ADDR:-127.0.0.1:12001}:12001"
     command: [
       "--config=/config.yaml",
       "--log-level=0",
-      "--listen-addr=:8080",
-      "--admin-addr=:8081",
+      "--listen-addr=:12000",
+      "--admin-addr=:12001",
     ]

@@ -8,6 +8,10 @@ Based on https://github.com/bsky-watch/labeler.
 2. Copy `example.env` to `.env` and at the very least uncomment and edit `DATA_DIR` variable there.
 3. Copy `example_config.yaml` to `config.yaml`. Generate and put there a private key. Edit or simply remove everything after the line with the private key.
 4. Run `docker compose up --build -d`
+   or, to cross-platform build from Mac:
+    ```
+    docker buildx build --platform=linux/amd64 -t bl4ck5un/zktls-labeler .
+    ```
 
 Congratulations! You've got yourself a perfectly useless labeler :) (by default there's no way to create any labels)
 
