@@ -23,7 +23,7 @@ services:
   labeler:
     build: .
     restart: always
-    image: bl4ck5un/go-labeler
+    image: bl4ck5un/zktls-labeler
     volumes:
       - "${DATA_DIR:?Specify DATA_DIR in .env file}:/data:rw"
       - "${CONFIG_FILE:-./config.yaml}:/config.yaml:ro"
