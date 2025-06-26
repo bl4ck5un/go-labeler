@@ -1,3 +1,5 @@
 config.yaml
 .env
 docker-compose.override.yml
+.idea
+data

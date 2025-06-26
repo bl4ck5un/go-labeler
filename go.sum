@@ -1,3 +1,5 @@
+bsky.watch/labeler v0.3.2 h1:7ANhrkOEfh5UUPn3xjlwDe7191hsILWam3zHmKp1few=
+bsky.watch/labeler v0.3.2/go.mod h1:M8sboe/qOB1K9zXgbBpZ7lXuZ6XRHvBAfZU1Bldzqms=
 bsky.watch/utils v0.0.0-20240719191258-612e4bd53c6e h1:9scUDgjVNIHQZUWxXwPmvDUQY+7g3n/yn7YzTKXGhks=
 bsky.watch/utils v0.0.0-20240719191258-612e4bd53c6e/go.mod h1:bSagljhFjqcbqUPSGIR6elG+k6v7kUgzWg05ddySJ44=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=

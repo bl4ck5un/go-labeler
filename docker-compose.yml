@@ -23,16 +23,16 @@ services:
   labeler:
     build: .
     restart: always
-    image: bsky.watch/labeler
+    image: bl4ck5un/go-labeler
     volumes:
       - "${DATA_DIR:?Specify DATA_DIR in .env file}:/data:rw"
       - "${CONFIG_FILE:-./config.yaml}:/config.yaml:ro"
     ports:
-      - "${LISTEN_ADDR:-0.0.0.0:8080}:8080"
+      - "${LISTEN_ADDR:-0.0.0.0:12000}:12000"
     command: [
       "--config=/config.yaml",
       "--log-level=0",
-      "--listen-addr=:8080",
+      "--listen-addr=:12000",
     ]
     depends_on:
       postgres:

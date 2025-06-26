@@ -1,7 +1,6 @@
-# ATproto labeler
+# zkTLS labeler
 
-This is an implementation of a basic labeler. It does not have any UI and does not impose any workflow on you.
-Labels can be created via an API, or any other way you implement.
+Based on https://github.com/bsky-watch/labeler.
 
 ## Getting started
 
