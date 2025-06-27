@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReclaimProofRequest } from '@reclaimprotocol/js-sdk';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function StartReclaimVerification() {
   const [proofs, setProofs] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [did, setDid] = useState('');
+
+  useEffect(() => {
+    document.title = "Twitter zkTLS Labeler";
+  }, []);
 
   const handleVerification = async () => {
     try {
@@ -40,36 +45,61 @@ function StartReclaimVerification() {
   };
 
   return (
-    <>
-      <div style={{ marginBottom: '1rem' }}>
-        <label htmlFor="did">DID:</label>
+    <div className="container mt-5">
+      <h1 className="mb-3">Twitter Follower Badged powered by zkTLS</h1>
+
+      <p>This is a zkTLS powered BlueSky labeler that generates a label based on the number of your Twitter followers.</p>
+
+      <p className="text-muted">
+        Enter your Bluesky DID handle (e.g., <code>did:plc:abc123</code> or <code>yourname.bsky.social</code>) and click “Start Verification”.
+        You’ll be guided through the zkTLS verification process built by Reclaim: you logs in to your Twitter account, and produce a proof for your follower count (and nothing else!).
+        Upon success, the system will issue a label—such as <code>twitter-1k</code>—to your DID via the labeler service <code>zktls-labeler.bsky.social</code>.
+      </p>
+
+      <div className="mb-3">
+        <label htmlFor="did" className="form-label">DID:</label>
         <input
           type="text"
           id="did"
+          className="form-control"
           value={did}
           onChange={(e) => setDid(e.target.value)}
-          style={{ marginLeft: '0.5rem', width: '400px' }}
           placeholder="Enter your DID (e.g., did:plc:abc123)"
         />
       </div>
 
-      <button onClick={handleVerification} disabled={isLoading || !did}>
+      <button
+        className="btn btn-primary"
+        onClick={handleVerification}
+        disabled={isLoading || !did}
+      >
         {isLoading ? 'Verifying...' : 'Start Verification'}
       </button>
 
+      <p className="mt-3">
+        Powered by{' '}
+        <img
+          src="https://framerusercontent.com/images/XZvnqtygDfqq3I1UOZAwYeuJWWM.svg?scale-down-to=512"
+          alt="logo"
+          style={{ height: '1em', verticalAlign: 'textBottom' }}
+        />
+      </p>
+
       {error && (
-        <div style={{ color: 'red', marginTop: '1rem' }}>
+        <div className="alert alert-danger mt-3">
           <strong>Error:</strong> {error}
         </div>
       )}
 
       {proofs && (
-        <div>
+        <div className="mt-4">
           <h2>Verification Successful!</h2>
-          <pre>{JSON.stringify(proofs, null, 2)}</pre>
+          <pre className="bg-light p-3 rounded border">
+            {JSON.stringify(proofs, null, 2)}
+          </pre>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
