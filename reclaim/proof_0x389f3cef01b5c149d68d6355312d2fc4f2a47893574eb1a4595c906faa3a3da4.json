@@ -1,0 +1,22 @@
+{
+  "identifier": "0x389f3cef01b5c149d68d6355312d2fc4f2a47893574eb1a4595c906faa3a3da4",
+  "claimData": {
+    "provider": "http",
+    "parameters": "{\"additionalClientOptions\":{},\"body\":\"\",\"geoLocation\":\"IN\",\"headers\":{\"Sec-Fetch-Mode\":\"same-origin\",\"Sec-Fetch-Site\":\"same-origin\",\"User-Agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36\"},\"method\":\"GET\",\"paramValues\":{\"URL_PARAMS_1\":\"jUKA--0QkqGIFhmfRZdWrQ\",\"URL_PARAM_2_GRD\":\"variables=%7B%22screen_name%22%3A%220xfanzhang%22%7D&features=%7B%22responsive_web_grok_bio_auto_translation_is_enabled%22%3Afalse%2C%22hidden_profile_subscriptions_enabled%22%3Atrue%2C%22payments_enabled%22%3Afalse%2C%22profile_label_improvements_pcf_label_in_post_enabled%22%3Atrue%2C%22rweb_tipjar_consumption_enabled%22%3Atrue%2C%22verified_phone_label_enabled%22%3Afalse%2C%22subscriptions_verification_info_is_identity_verified_enabled%22%3Atrue%2C%22subscriptions_verification_info_verified_since_enabled%22%3Atrue%2C%22highlights_tweets_tab_ui_enabled%22%3Atrue%2C%22responsive_web_twitter_article_notes_tab_enabled%22%3Atrue%2C%22subscriptions_feature_can_gift_premium%22%3Atrue%2C%22creator_subscriptions_tweet_preview_api_enabled%22%3Atrue%2C%22responsive_web_graphql_skip_user_profile_image_extensions_enabled%22%3Afalse%2C%22responsive_web_graphql_timeline_navigation_enabled%22%3Atrue%7D&fieldToggles=%7B%22withAuxiliaryUserLabels%22%3Atrue%7D\",\"URL_PARAM_DOMAIN\":\"x\",\"created_at\":\"Fri Aug 01 23:34:44 +0000 2014\",\"followers_count\":\"3611\",\"screen_name\":\"0xFanZhang\"},\"responseMatches\":[{\"invert\":false,\"type\":\"contains\",\"value\":\"\\\"screen_name\\\":\\\"{{screen_name}}\\\"\"},{\"invert\":false,\"type\":\"contains\",\"value\":\"\\\"followers_count\\\":{{followers_count}}\"},{\"invert\":false,\"type\":\"contains\",\"value\":\"\\\"created_at\\\":\\\"{{created_at}}\\\"\"}],\"responseRedactions\":[{\"jsonPath\":\"$.data.user.result.core.screen_name\",\"regex\":\"\\\"screen_name\\\":\\\"(.*)\\\"\",\"xPath\":\"\"},{\"jsonPath\":\"$.data.user.result.legacy.followers_count\",\"regex\":\"\\\"followers_count\\\":(.*)\",\"xPath\":\"\"},{\"jsonPath\":\"$.data.user.result.core.created_at\",\"regex\":\"\\\"created_at\\\":\\\"(.*)\\\"\",\"xPath\":\"\"}],\"url\":\"https://{{URL_PARAM_DOMAIN}}.com/i/api/graphql/{{URL_PARAMS_1}}/UserByScreenName?{{URL_PARAM_2_GRD}}\"}",
+    "owner": "0xadc62b58f6a2a330dcbcf79fba0dd9ce1de70b89",
+    "timestampS": 1751058188,
+    "context": "{\"contextAddress\":\"0x0\",\"contextMessage\":\"sample-context\",\"extractedParameters\":{\"URL_PARAMS_1\":\"jUKA--0QkqGIFhmfRZdWrQ\",\"URL_PARAM_2_GRD\":\"variables=%7B%22screen_name%22%3A%220xfanzhang%22%7D&features=%7B%22responsive_web_grok_bio_auto_translation_is_enabled%22%3Afalse%2C%22hidden_profile_subscriptions_enabled%22%3Atrue%2C%22payments_enabled%22%3Afalse%2C%22profile_label_improvements_pcf_label_in_post_enabled%22%3Atrue%2C%22rweb_tipjar_consumption_enabled%22%3Atrue%2C%22verified_phone_label_enabled%22%3Afalse%2C%22subscriptions_verification_info_is_identity_verified_enabled%22%3Atrue%2C%22subscriptions_verification_info_verified_since_enabled%22%3Atrue%2C%22highlights_tweets_tab_ui_enabled%22%3Atrue%2C%22responsive_web_twitter_article_notes_tab_enabled%22%3Atrue%2C%22subscriptions_feature_can_gift_premium%22%3Atrue%2C%22creator_subscriptions_tweet_preview_api_enabled%22%3Atrue%2C%22responsive_web_graphql_skip_user_profile_image_extensions_enabled%22%3Afalse%2C%22responsive_web_graphql_timeline_navigation_enabled%22%3Atrue%7D&fieldToggles=%7B%22withAuxiliaryUserLabels%22%3Atrue%7D\",\"URL_PARAM_DOMAIN\":\"x\",\"created_at\":\"Fri Aug 01 23:34:44 +0000 2014\",\"followers_count\":\"3611\",\"screen_name\":\"0xFanZhang\"},\"providerHash\":\"0xd4fb71de874115b581e7c15fedd0f71b38fbfabf6894487d275fde2cca1d0ebb\"}",
+    "identifier": "0x389f3cef01b5c149d68d6355312d2fc4f2a47893574eb1a4595c906faa3a3da4",
+    "epoch": 1
+  },
+  "signatures": [
+    "0x9bb9d6b915b468e6f63e986829a5762c5e49cea02928d1074b29bb45ccbd3d6560853b22afa517e122c67f72d4a807b2952880e860828d274842670699803ce01b"
+  ],
+  "witnesses": [
+    {
+      "id": "0x244897572368eadf65bfbc5aec98d8e5443a9072",
+      "url": "wss://attestor.reclaimprotocol.org/ws"
+    }
+  ],
+  "publicData": null
+}
