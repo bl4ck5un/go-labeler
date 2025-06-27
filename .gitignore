@@ -5,3 +5,4 @@ docker-compose.override.yaml
 .idea
 data
 __pycache__
+proof_*.json

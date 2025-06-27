@@ -1,0 +1,12 @@
+# start frontend
+
+cd reclaim-app
+npm start
+
+# Start backend
+
+```
+ngrok http http://localhost:3001
+# modify base url 
+uvicorn main:app --reload --port 3001
+```

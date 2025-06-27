@@ -4,6 +4,7 @@ import json
 from urllib.parse import unquote
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
+import requests
 
 app = FastAPI()
 # Enable CORS for all origins
@@ -28,7 +29,7 @@ print(APP_ID)
 print(PROVIDER_ID)
 print(APP_SECRET)
 
-BASE_URL = "https://a0ac-32-221-215-63.ngrok-free.app"  # if using ngrok, provide the ngrok base url
+BASE_URL = "https://6aa6-135-148-33-204.ngrok-free.app"  # if using ngrok, provide the ngrok base url
 
 from fastapi import Query
 
@@ -62,8 +63,6 @@ async def receive_proofs(request: Request):
 
     parsed_data = json.loads(body_str)
 
-    print(parsed_data)
-
     identifier = parsed_data.get("identifier", "default_id")
     filename = f"proof_{identifier}.json"
 
@@ -77,13 +76,60 @@ async def receive_proofs(request: Request):
 
     context_str = parsed_data["claimData"]["context"]
     context = json.loads(context_str)
+    extracted = context["extractedParameters"]
 
-    follower_count = context["extractedParameters"].get("followers_count")
-    display_name = context["extractedParameters"].get("screen_name")
-    # You backend logic here after verifying the proof
-    # Process the proofs here
-    print("follower_count", follower_count)
-    print("display_name", display_name)
+    follower_count = int(extracted.get("followers_count", "0"))
+    screen_name = extracted.get("screen_name", "")
+
+    parameters_str = parsed_data["claimData"]["parameters"]
+    parameters = json.loads(parameters_str)
+    param_values = parameters.get("paramValues", {})
+    did = param_values.get("did")
+
+    print("follower_count:", follower_count)
+    print("screen_name:", screen_name)
+    print("did:", did)
+    
+
+    # Resolve to DID if it's a handle
+    if not did.startswith("did:"):
+        try:
+            r = requests.get(
+                "https://bsky.social/xrpc/com.atproto.identity.resolveHandle",
+                params={"handle": did}
+            )
+            r.raise_for_status()
+            did = r.json().get("did")
+            print("Resolved DID:", did)
+        except requests.RequestException as e:
+            print("Error resolving handle to DID:", e)
+            return {"status": "failed", "message": "Invalid handle or resolution failed"}, 400
+
+    # Determine label
+    label_val = None
+    if follower_count >= 100_000:
+        label_val = "twitter-100k"
+    elif follower_count >= 10_000:
+        label_val = "twitter-10k"
+    elif follower_count >= 1_000:
+        label_val = "twitter-1k"
+    elif follower_count >= 100:
+        label_val = "twitter-100"
+
+    if label_val and did:
+        try:
+            r = requests.post(
+                "http://127.0.0.1:12001/label",
+                json={
+                    "uri": did,
+                    "val": label_val,
+                    "neg": False
+                }
+            )
+            r.raise_for_status()
+            print(f"Labeled {did} with {label_val}")
+        except requests.RequestException as e:
+            print("Error submitting label:", e)
 
     return {"status": "success"}
 

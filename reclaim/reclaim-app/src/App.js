@@ -12,7 +12,7 @@ function StartReclaimVerification() {
       setIsLoading(true);
       setError(null);
 
-      const BASE_URL = "https://a0ac-32-221-215-63.ngrok-free.app";
+      const BASE_URL = "https://6aa6-135-148-33-204.ngrok-free.app";
       const response = await fetch(`${BASE_URL}/generate-config?did=${encodeURIComponent(did)}`, {
         headers: {
           'ngrok-skip-browser-warning': '69420',
