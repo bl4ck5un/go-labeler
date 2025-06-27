@@ -30,11 +30,16 @@ print(APP_SECRET)
 
 BASE_URL = "https://a0ac-32-221-215-63.ngrok-free.app"  # if using ngrok, provide the ngrok base url
 
+from fastapi import Query
+
 # Route to generate SDK configuration
 @app.get("/generate-config")
-async def generate_config():
+async def generate_config(did: str = Query(...)):
     try:
-        reclaim_proof_request = await ReclaimProofRequest.init(APP_ID, APP_SECRET, PROVIDER_ID)
+        reclaim_proof_request = await ReclaimProofRequest.init(APP_ID, APP_SECRET, PROVIDER_ID,
+                                                               {"useBrowserExtension": False}
+                                                               )
+        reclaim_proof_request.set_params({"did": did})
         reclaim_proof_request.set_app_callback_url(BASE_URL + "/receive-proofs")
         reclaim_proof_request_config = reclaim_proof_request.to_json_string()
 
@@ -56,6 +61,8 @@ async def receive_proofs(request: Request):
     # parse the body string to a dictionary
 
     parsed_data = json.loads(body_str)
+
+    print(parsed_data)
 
     identifier = parsed_data.get("identifier", "default_id")
     filename = f"proof_{identifier}.json"
