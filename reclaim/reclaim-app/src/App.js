@@ -1,106 +1,96 @@
 import { useEffect, useState } from 'react';
-import { ReclaimProofRequest } from '@reclaimprotocol/js-sdk';
+import LoginWithBluesky from './LoginWithBluesky';
+import ReclaimVerifier from './ReclaimVerifier';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function StartReclaimVerification() {
-  const [proofs, setProofs] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+function App() {
   const [did, setDid] = useState('');
+  const [token, setToken] = useState('');
+  const [startVerification, setStartVerification] = useState(false);
 
   useEffect(() => {
     document.title = "Twitter zkTLS Labeler";
   }, []);
 
-  const handleVerification = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
+  const handleLogin = async (did, token) => {
+    console.log("Calling handleLogin with DID:", did);
+    setDid(did);
+    setToken(token);
 
-      const BASE_URL = "https://6aa6-135-148-33-204.ngrok-free.app";
-      const response = await fetch(`${BASE_URL}/generate-config?did=${encodeURIComponent(did)}`, {
-        headers: {
-          'ngrok-skip-browser-warning': '69420',
-        },
-      });
-
-      const { reclaimProofRequestConfig } = await response.json();
-      const reclaimProofRequest = await ReclaimProofRequest.fromJsonString(reclaimProofRequestConfig);
-
-      await reclaimProofRequest.triggerReclaimFlow();
-      await reclaimProofRequest.startSession({
-        onSuccess: (proofs) => {
-          setProofs(proofs);
-          setIsLoading(false);
-        },
-        onError: (error) => {
-          setError(`Verification failed: ${error.message || error}`);
-          setIsLoading(false);
-        },
-      });
-    } catch (err) {
-      setError(`Error initializing Reclaim: ${err.message || err}`);
-      setIsLoading(false);
-    }
+    await fetch('/api/verify-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    });
   };
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-3">Twitter Follower Badged powered by zkTLS</h1>
+      <h1 className="mb-4">zkLabeler: zkTLS Labeler</h1>
 
-      <p>This is a zkTLS powered BlueSky labeler that generates a label based on the number of your Twitter followers.</p>
+      <p>Adding a label based on your Twitter follower count, without leading your Twitter handle to the labeler.</p>
 
-      <p className="text-muted">
-        Enter your Bluesky DID handle (e.g., <code>did:plc:abc123</code> or <code>yourname.bsky.social</code>) and click “Start Verification”.
-        You’ll be guided through the zkTLS verification process built by Reclaim: you logs in to your Twitter account, and produce a proof for your follower count (and nothing else!).
-        Upon success, the system will issue a label—such as <code>twitter-1k</code>—to your DID via the labeler service <code>zktls-labeler.bsky.social</code>.
-      </p>
+      <img
+        src="/demo.png"
+        alt="zktls-labeler on Bluesky"
+        className="img-fluid rounded border"
+        style={{ maxWidth: '400px' }}
+      />
 
-      <div className="mb-3">
-        <label htmlFor="did" className="form-label">DID:</label>
-        <input
-          type="text"
-          id="did"
-          className="form-control"
-          value={did}
-          onChange={(e) => setDid(e.target.value)}
-          placeholder="Enter your DID (e.g., did:plc:abc123)"
-        />
+      <h3 class="mt-5 mb-4">How to Use?</h3>
+      <ol>
+        <li>Subscribe to <a
+          href="https://bsky.app/profile/zktls-labeler.bsky.social"
+          className="btn btn-primary btn-sm"
+          target="_blank"
+          rel="noopener noreferrer"
+        >@zktls-labeler</a> on Bluesky
+        </li>
+        <li>Finish the following two steps</li>
+      </ol>
+
+      <ul className="list-group mb-4">
+        <li className="list-group-item">
+          <strong>Step 1: Log in to Bluesky</strong>
+          <p className="mb-2 text-muted">We'll verify your Bluesky identity.</p>
+          <LoginWithBluesky onLogin={handleLogin} />
+          {did && <div className="text-success">✅ Logged in as <code>{did}</code></div>}
+        </li>
+
+        <li className="list-group-item">
+          <strong>Step 2: Prove Your Twitter Follower Count</strong>
+          <p className="mb-2 text-muted">      <p className="mt-3">
+            Powered by{' '}
+            <img
+              src="https://framerusercontent.com/images/XZvnqtygDfqq3I1UOZAwYeuJWWM.svg?scale-down-to=512"
+              alt="logo"
+              style={{ height: '1em', verticalAlign: 'textBottom' }}
+            />
+          </p></p>
+
+
+          {did ? (
+            <ReclaimVerifier did={did} />
+          ) : (
+            <div className="alert alert-warning mt-3" role="alert">
+              ⚠️ Please log in first.
+            </div>
+          )}
+        </li>
+      </ul>
+
+      <div className="mt-5">
+        <h5>FAQ</h5>
+        <ul>
+          <li><strong>❓ What is Bluesky?</strong> A decentralized social network.</li>
+          <li><strong>🏷️ What are labels?</strong> Tags that describe user attributes on Bluesky.</li>
+          <li><strong>🔐 What is zkTLS?</strong> A protocol to prove facts about HTTPS data without revealing it. In this case, you prove your Twitter follower count is XYZ to the labeler, without revealing anything else (not even your Twitter handle).</li>
+          <li><strong>🤖 What does zkTLS-labeler do?</strong> Issues a label based on your Twitter follower count, obtained through Reclaim (a zkTLS system).</li>
+          <li><strong>🕵️ Privacy implications?</strong> The labeler learns your DID and your Twitter follower count. Per privacy guarantee of Reclaim (or zkTLS in general), nothing else is revealed to the labeler.</li>
+        </ul>
       </div>
-
-      <button
-        className="btn btn-primary"
-        onClick={handleVerification}
-        disabled={isLoading || !did}
-      >
-        {isLoading ? 'Verifying...' : 'Start Verification'}
-      </button>
-
-      <p className="mt-3">
-        Powered by{' '}
-        <img
-          src="https://framerusercontent.com/images/XZvnqtygDfqq3I1UOZAwYeuJWWM.svg?scale-down-to=512"
-          alt="logo"
-          style={{ height: '1em', verticalAlign: 'textBottom' }}
-        />
-      </p>
-
-      {error && (
-        <div className="alert alert-danger mt-3">
-          <strong>Error:</strong> {error}
-        </div>
-      )}
-
-      {proofs && (
-        <div className="mt-4">
-          <h2>Verification Successful!</h2>
-          <pre className="bg-light p-3 rounded border">
-            {JSON.stringify(proofs, null, 2)}
-          </pre>
-        </div>
-      )}
     </div>
   );
 }
 
-export default StartReclaimVerification;
+export default App;

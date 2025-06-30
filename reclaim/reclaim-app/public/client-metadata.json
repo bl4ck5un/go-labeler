@@ -1,0 +1,19 @@
+{
+    "client_id": "https://368b-135-148-33-204.ngrok-free.app/client-metadata.json",
+    "client_uri": "https://368b-135-148-33-204.ngrok-free.app",
+    "redirect_uris": [
+        "https://368b-135-148-33-204.ngrok-free.app"
+    ],
+    "application_type": "web",
+    "client_name": "My zkTLS Labeler",
+    "dpop_bound_access_tokens": true,
+    "grant_types": [
+        "authorization_code",
+        "refresh_token"
+    ],
+    "response_types": [
+        "code"
+    ],
+    "scope": "atproto transition:generic",
+    "token_endpoint_auth_method": "none"
+}
