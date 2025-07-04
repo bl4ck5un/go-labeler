@@ -47,8 +47,7 @@ export default function ReclaimVerifier({ did }) {
             {verificationResult && (
                 <div className="mt-4">
                     <div className="text alert alert-success border-success rounded">
-                        <h5 className="mb-3">✅ zkLabeling successful!</h5>
-                        <p>The label will show up in your BlueSky profile after a short delay.</p>
+                        <p><strong>✅ zkLabeling successful!</strong> The label will show up in your BlueSky profile after a short delay.</p>
                         {typeof verificationResult === 'string' ? (
                             <p>{verificationResult}</p>
                         ) : (
