@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ReclaimProofRequest } from '@reclaimprotocol/js-sdk';
 
 export default function ReclaimVerifier({ did }) {
-    const [proofs, setProofs] = useState(null);
+    const [verificationResult, setverificationResult] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -23,8 +23,8 @@ export default function ReclaimVerifier({ did }) {
 
             await reclaimProofRequest.triggerReclaimFlow();
             await reclaimProofRequest.startSession({
-                onSuccess: (proofs) => {
-                    setProofs(proofs);
+                onSuccess: (result) => {
+                    setverificationResult(result);
                     setIsLoading(false);
                 },
                 onError: (error) => {
@@ -44,12 +44,18 @@ export default function ReclaimVerifier({ did }) {
                 {isLoading ? 'Verifying...' : 'Start Verification'}
             </button>
             {error && <div className="alert alert-danger mt-3">{error}</div>}
-            {proofs && (
+            {verificationResult && (
                 <div className="mt-4">
-                    <h2>Verification Successful!</h2>
-                    <pre className="bg-light p-3 rounded border">
-                        {JSON.stringify(proofs, null, 2)}
-                    </pre>
+                    <div className="alert alert-success border-success rounded shadow-sm">
+                        <h2 className="mb-3">✅ Verification Successful!</h2>
+                        <ul className="list-group list-group-flush">
+                            {Object.entries(verificationResult).map(([key, value]) => (
+                                <li className="list-group-item" key={key}>
+                                    <strong>{key}:</strong> {String(value)}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             )}
         </div>
