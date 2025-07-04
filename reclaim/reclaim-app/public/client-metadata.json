@@ -1,8 +1,8 @@
 {
-    "client_id": "https://368b-135-148-33-204.ngrok-free.app/client-metadata.json",
-    "client_uri": "https://368b-135-148-33-204.ngrok-free.app",
+    "client_id": "https://zklabeler.netlify.app/client-metadata.json",
+    "client_uri": "https://zklabeler.netlify.app",
     "redirect_uris": [
-        "https://368b-135-148-33-204.ngrok-free.app"
+        "https://zklabeler.netlify.app"
     ],
     "application_type": "web",
     "client_name": "My zkTLS Labeler",

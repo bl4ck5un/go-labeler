@@ -6,7 +6,7 @@ import {
 } from '@atcute/oauth-browser-client';
 import { useEffect, useState } from 'react';
 
-const APP_URL = "https://368b-135-148-33-204.ngrok-free.app";
+const APP_URL = "https://zklabeler.netlify.app";
 
 const sleep = ms => new Promise(res => setTimeout(res, ms));
 
