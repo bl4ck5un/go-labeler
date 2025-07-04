@@ -30,7 +30,7 @@ export default function LoginWithBluesky({ onLogin }) {
                     const session = await finalizeAuthorization(hash);
                     console.log(session);
                     onLogin(session.info.sub, session.token); // pass DID + token
-                    // window.history.replaceState(null, '', window.location.pathname);
+                    window.history.replaceState(null, '', window.location.pathname);
                 } catch (err) {
                     console.error("Bluesky login failed:", err);
                 }
