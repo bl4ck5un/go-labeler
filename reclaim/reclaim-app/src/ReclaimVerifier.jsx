@@ -46,15 +46,19 @@ export default function ReclaimVerifier({ did }) {
             {error && <div className="alert alert-danger mt-3">{error}</div>}
             {verificationResult && (
                 <div className="mt-4">
-                    <div className="alert alert-success border-success rounded shadow-sm">
-                        <h2 className="mb-3">✅ Verification Successful!</h2>
-                        <ul className="list-group list-group-flush">
-                            {Object.entries(verificationResult).map(([key, value]) => (
-                                <li className="list-group-item" key={key}>
-                                    <strong>{key}:</strong> {String(value)}
-                                </li>
-                            ))}
-                        </ul>
+                    <div className="alert alert-success border-success rounded">
+                        <h4 className="mb-3">✅ Verification Successful!</h4>
+                        {typeof verificationResult === 'string' ? (
+                            <p>{verificationResult}</p>
+                        ) : (
+                            <ul className="list-group list-group-flush">
+                                {Object.entries(verificationResult).map(([key, value]) => (
+                                    <li className="list-group-item" key={key}>
+                                        <strong>{key}:</strong> {String(value)}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
                 </div>
             )}
