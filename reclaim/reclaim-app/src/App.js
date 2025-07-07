@@ -19,38 +19,95 @@ function App() {
   return (
     <>
       <div className="container mt-5">
-        <h1 className="mb-4">zkLabeler: zkTLS Labeler</h1>
+        <h1 class="mb-2 text-center display-4 font-weight-bold">
+          <span class="text-primary">zkLabeler</span>
+        </h1>
 
-        <p>Adding a label based on your Twitter follower count using zkTLS.</p>
+        <p class="lead text-center text-muted mb-4">
+          Creating <strong>Bluesky labels</strong> using <code class="bg-light px-1 rounded">zkTLS</code>
+        </p>
 
-        {/* <img
-        src="/demo.png"
-        alt="zktls-labeler on Bluesky"
-        className="img-fluid rounded border"
-        style={{ maxWidth: '400px' }}
-      /> */}
+        <div className="text-center">
+          <img
+            src="/logo.png"
+            alt="zktls-labeler on Bluesky"
+            className="img-fluid rounded border m-2"
+            style={{ maxWidth: '200px' }}
+          />
+        </div>
+
+        <div className="text-center m-5">
+          <h2 className="d-inline-block mb-2">What?</h2>
+          <div
+            style={{
+              height: '4px',
+              width: '100px',
+              backgroundColor: '#444',
+              margin: '0 auto',
+            }}
+          ></div>
+        </div>
 
         <div className="mt-2">
-          <ul>
-            <li><strong>❓ What is Bluesky?</strong> A decentralized social network.</li>
-            <li><strong>🏷️ What are labels?</strong> Tags that describe user attributes on Bluesky.</li>
-            <li><strong>🔐 What is zkTLS?</strong> A protocol to prove facts about HTTPS data without revealing it. In this case, you prove your Twitter follower count is XYZ to the labeler, without revealing anything else (not even your Twitter handle).</li>
-            <li><strong>🤖 What does zkTLS-labeler do?</strong> Issues a label based on your Twitter follower count, obtained through Reclaim (a zkTLS system).</li>
-            <li><strong>🕵️ Privacy implications?</strong> The labeler learns your DID and your Twitter follower count. Per privacy guarantee of Reclaim (or zkTLS in general), nothing else is revealed to the labeler.</li>
+          <ul className="list-unstyled">
+            <li className="mb-2">
+              <strong>❓ What is Bluesky?</strong> A decentralized and open social network built on the AT Protocol. The default app is{' '}
+              <a
+                href="https://bsky.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                bsky.app
+              </a>.
+            </li>
+
+            <li className="mb-2">
+              <strong>🏷️ What are labels?</strong> Labels are structured annotations that describe user accounts or posts, e.g., “researcher,” developer,” or “under 10K followers.” Labeling is decentralized, and services (like this one) can attach labels based on custom policies.
+            </li>
+
+            <li className="mb-2">
+              <strong>🔐 What is zkTLS?</strong> Started with academic research such as Town Crier (CCS'16) and DECO (CCS'21), zkTLS generally refers to protocols that lets a client prove facts about data retrieved from TLS servers.
+            </li>
+
+            <li className="mb-2">
+              <strong>🤖 What does zkLabeler do?</strong> In this case, zkTLS prover built by <a href="https://reclaimprotocol.org" target="_blank" rel="noopener noreferrer">Reclaim</a> is used to verify your Twitter follower count. Based on that, zkLabeler issues a label (e.g., >100, >1k, >10k, etc) and attaches it to your Bluesky DID.
+            </li>
+
+            <li className="mb-2">
+              <strong>🕵️ Privacy implications?</strong> This service (zkLabeler) sees your Bluesky DID (public by design) and Twitter follower count claim from the Reclaim proof. It does see or need your Twitter credential to access and verify your follower count.
+            </li>
+
+            <li className="mb-2">
+              <strong>❓ Isn't the follower count public data anyway, why the complication?</strong> True, I wanted to use a low stake example, but it can be any private data that zkTLS can prove (e.g., how about a label based on your Google map travel history?)
+            </li>
           </ul>
         </div>
 
-        <h4 className="mt-2 mb-4">How to Use?</h4>
-        <ol>
-          <li>Subscribe to <a
-            href="https://bsky.app/profile/zktls-labeler.bsky.social"
-            className="badge rounded-pill bg-primary text-light text-decoration-none"
-            target="_blank"
-            rel="noopener noreferrer"
-          >@zktls-labeler</a> on Bluesky.
-          </li>
-          <li>Finish the following two steps.</li>
-        </ol>
+        <div className="text-center m-5">
+          <h2 className="d-inline-block mb-2">How?</h2>
+          <div
+            style={{
+              height: '4px',
+              width: '100px',
+              backgroundColor: '#444',
+              margin: '0 auto',
+            }}
+          ></div>
+        </div>
+
+        <div className=''>
+          <ol>
+            <li>You need a BlueSky account.</li>
+            <li>Subscribe to <a
+              href="https://bsky.app/profile/zktls-labeler.bsky.social"
+              className="badge rounded-pill bg-primary text-light text-decoration-none"
+              target="_blank"
+              rel="noopener noreferrer"
+            >@zktls-labeler</a> on Bluesky. You only see labelers from labelers you follow.
+            </li>
+            <li>Finish the following two steps.</li>
+          </ol>
+        </div>
 
         <ul className="list-group mt-5">
           <li className="list-group-item">
@@ -86,11 +143,17 @@ function App() {
           </li>
         </ul>
       </div>
+
       <footer className="bg-dark text-light py-3 mt-5">
         <div className="container text-center">
-          <small>
-            © {new Date().getFullYear()} zkLabeler
-          </small>
+          <strong>Disclaimer:</strong> This is a prototype service provided for demonstration purposes only.
+          Security has not been audited, and we take no responsibility for any loss of
+          data or privacy. Reclaim Protocol's terms apply as well.
+          <p>
+            <small>
+              © {new Date().getFullYear()} zkLabeler. Contact: mail@fanzhang.me
+            </small>
+          </p>
         </div>
       </footer>
     </>
