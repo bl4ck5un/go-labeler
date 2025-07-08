@@ -75,6 +75,7 @@ ADMIN_LABEL_URL = "http://127.0.0.1:12001/label"
 def label():
     try:
         data = request.get_json()
+        print(f'got request {data}')
         r = requests.post(ADMIN_LABEL_URL, json=data)
         r.raise_for_status()
         return jsonify({"status": "ok"})

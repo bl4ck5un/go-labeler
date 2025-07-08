@@ -10,3 +10,5 @@ LICENSE
 *.sqlite
 postgres
 data
+reclaim
+frontend
